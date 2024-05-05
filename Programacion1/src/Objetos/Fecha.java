@@ -6,25 +6,23 @@ public class Fecha {
 	int mes;
 	int año;
 	
-	
 	public Fecha() {
-		int dia = 0;
-		int mes = 0;
-		int año = 0;
+		this.dia = 0;
+		this.mes = 0;
+		this.año = 0;
 	}
 	
-	
 	public Fecha(int d, int m, int a) {
-		int dia = d;
-		int mes = m;
-		int año = a;
+		this.dia = d;
+		this.mes = m;
+		this.año = a;
 	}
 	
 	public void imprimir() {
 		System.out.println(this.dia + "/" + this.mes + "/" + this.año); 
 	}
 	
-	boolean esVerano() {
+	public boolean esVerano() {
 		
 		if(this.mes == 1|| this.mes == 2) return true;
 		
@@ -98,8 +96,121 @@ public class Fecha {
 		else return false;
 	}
 	
+	public void avanzarDia() {
 	
-	
+		if((this.mes == 4 || this.mes == 6 || this.mes == 9 || this.mes == 11) && this.dia == 31) {
+			
+			this.dia = 1;
+			this.mes = mes + 1;
+		}
+		
+		else if((this.mes == 1 || this.mes == 3 || this.mes == 5 || this.mes == 7 || this.mes == 8 || this.mes == 10) && this.dia == 30) {
+			
+			this.dia = 1;
+			this.mes = mes + 1;
+			
+		}
+		
+		else if (this.dia==30 && this.mes == 12) {
+			this.dia = 1;
+			this.mes = 1;
+			this.año = año + 1;
+		}
+		
+		else this.dia += 1;
+		
 	}
+		
+	
+	public boolean antesQue(Fecha a) {
+		
+		if (this.año < a.año) return true;
+		
+		else if (this.año == a.año && this.mes < a.mes) return true;
+		
+		else if (this.año == a.año && this.mes == a.mes && this.dia <a.dia) return true;
+		
+		else return false;
+	}
+	
+	public int diaDelAnio() { 
+
+		int acum = 0;
+		for(int i = 1; i<= 12; i++) {
+			
+			if (i <= this.mes) {
+				
+				if(i == 1) acum += 0;
+				
+				if (i == 2) acum += 30;
+				
+				if(i == 3) {
+					
+					if (biciesto(this.año)) {
+						acum += 29;
+					}
+					
+					else {
+						acum += 28;
+					}
+				}
+				
+				if (i== 4) acum += 30;
+				
+				if(i==5) acum += 31;
+				
+				if (i==6) acum += 30;
+				
+				if (i==7) acum += 31;
+				
+				if (i ==8) acum+=30;
+		
+				if (i == 9) acum +=30;
+				
+				if (i ==10) acum+= 31;
+				
+				if (i==11) acum += 30;
+				
+				if (i==12) acum += 31;
+			}
+		}
+		
+		return acum += this.dia;
+	}	
+	
+	public int diasDeDiferenciaCon(Fecha a) {
+		
+		int dif = 0;
+		
+		if (this.diaDelAnio() > a.diaDelAnio()) {
+			dif =  this.diaDelAnio() - a.diaDelAnio();
+	
+		}
+		
+		else if (a.diaDelAnio() > this.diaDelAnio()) {
+			dif = a.diaDelAnio() - this.diaDelAnio();
+		}
+		
+		return dif;
+	}
+	
+	
+	
+	public static void main(String args[]) {
+		
+		Fecha san_valentin = new Fecha(14,02,2024);
+		
+		san_valentin.diaDelAnio();
+		
+		Fecha independence_day = new Fecha(04,07,2024);
+		
+		System.out.println(independence_day.diasDeDiferenciaCon(san_valentin));
+	}
+}
+
+
+
+
+
 	
 
